@@ -80,8 +80,7 @@ BEGIN
 			WHEN ' || spacing || '*(n+1) < length THEN ' || spacing || '*(n+1)/length
 			ELSE 1
 		  END)),' || GeometrySRID || ') As the_geom
-		FROM
-		  (SELECT * FROM tmp_source) AS t
+		FROM tmp_source AS t
 		CROSS JOIN generate_series(0,' || spacing*100 || ') AS n
 		WHERE n*' || spacing || '/length < 1';
 
