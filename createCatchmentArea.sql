@@ -1,16 +1,18 @@
 /*
 Description:
   Function will return catchment distance (in metres) and catchment polygon area 
-	calculated along the network specified for each source specified
+  calculated along the network specified for rows in table provided
 	
 Example usage:
-  SELECT * FROM hutt_pax.my_pgr_createCatchmentArea(
-	  'SELECT 
+  SELECT * 
+  INTO hutt_pax.tmp_stop_catchment
+  FROM hutt_pax.my_pgr_createCatchmentArea(
+  	'SELECT 
 	      stop_id::integer AS id, 
-	      the_geom::geometry AS the_geom 
-      FROM gtfs_stops 
-      WHERE stop_id IN(''10446'',''10415'',''10427'')',
-	  'hutt_pax.wainuiomata_roads_20m'
+	      the_geom::geometry AS the_geom
+	FROM gtfs_stops 
+	WHERE stop_id IN(''10446'',''10415'',''10427'')',
+  	'hutt_pax.wainuiomata_roads_20m'
   );
 
 Notes:
