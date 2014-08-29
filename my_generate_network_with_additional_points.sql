@@ -24,8 +24,12 @@ Author:
 */
 
 DROP FUNCTION IF EXISTS my_generate_network_with_additional_points(text, text, text);
-CREATE OR REPLACE FUNCTION my_generate_network_with_additional_points(sourcePointSql text, networkEdgesSql text, outputTableName text)
-  RETURNS text AS
+CREATE OR REPLACE FUNCTION my_generate_network_with_additional_points(
+	sourcePointSql text DEFAULT 'SELECT id::integer, the_geom:geometry FROM pointstable', 
+	networkEdgesSql text DEFAULT 'SELECT id:integer, the_geom:geometry, km::float, kmh::integer FROM networktable', 
+	outputTableName text DEFAULT 'my_generated_network'
+)
+	RETURNS text AS
 $BODY$
 DECLARE
 

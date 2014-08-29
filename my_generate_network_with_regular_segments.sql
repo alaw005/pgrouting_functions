@@ -29,16 +29,18 @@ Author:
 
 DROP FUNCTION IF EXISTS my_generate_network_with_regular_segments(text, text, text, double precision, integer);
 CREATE OR REPLACE FUNCTION my_generate_network_with_regular_segments(
-    IN inputtablename text, IN outputtablename text, 
-	  IN geomfieldname text DEFAULT 'the_geom'::text, 
-	  IN spacing double precision DEFAULT 100.00, 
-	  IN GeometrySRID integer DEFAULT 2193)
-  RETURNS TABLE(
-    id integer, 
-    source bigint, 
-    target bigint, 
-    distance double precision, 
-    the_geom geometry) AS
+    inputtablename text, 
+	outputtablename text, 
+	geomfieldname text DEFAULT 'the_geom'::text, 
+	spacing double precision DEFAULT 100.00, 
+	GeometrySRID integer DEFAULT 2193
+)
+	RETURNS TABLE(
+		id integer, 
+		source bigint, 
+		target bigint, 
+		distance double precision, 
+		the_geom geometry) AS
 $BODY$
 DECLARE
 	-- Nothing at this stage
