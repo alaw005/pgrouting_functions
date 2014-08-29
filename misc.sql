@@ -17,10 +17,10 @@ Author:
 
 */
 
-DROP FUNCTION hutt_pax.my_buffer(text, float, integer);
+--DROP FUNCTION hutt_pax.my_buffer(text, float, integer);
 CREATE OR REPLACE FUNCTION hutt_pax.my_buffer(
 	source_sql text,
-	radius_of_buffer float DEFAULT 800,
+	radius_of_buffer float DEFAULT 400,
 	srid integer DEFAULT 2193
 )
 	RETURNS TABLE(

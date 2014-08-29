@@ -1,19 +1,16 @@
--- -------------------------------------------------------------------
--- my_pgr_createSegmentedNetwork.sql
--- Author Adam Lawrence <alaw005@gmail.com>
--- -------------------------------------------------------------------
-
-
 /*
-Example:
-
-  SELECT ST_AsText(the_geom) 
-    FROM my_pgr_createSegmentedNetwork('schema.roadNetwork', 'schema.segmentedNetwork', 'the_geom', 20.00);
+Name:
+	my_generate_network_with_regular_segments - generates network with regular segments (e.g. every 20m) from existing network 
 
 Notes:
-  1.  Due to pgrouting bug outputTableName must be specifeid for a schema owned by
-      user otherwise pgr_createTopology does not generate source and target values
+	1. Due to pgrouting bug outputTableName must be specified for a schema owned by
+       user otherwise pgr_createTopology does not generate source and target values
+	2. Only suitable for smaller networks, as otherwise gets too cumbersome and runs for days!
 
+Usage:
+
+  SELECT ST_AsText(the_geom) 
+    FROM my_generate_network_with_regular_segments('schema.roadNetwork', 'schema.segmentedNetwork', 'the_geom', 20.00);
 
 This function was inspired by an example from internet which had following comments:
 --The below example simulates a while loop in
@@ -25,10 +22,13 @@ This function was inspired by an example from internet which had following comme
 --and no geometry is longer than 100 units*10000
 --for better performance you can reduce the 10000
 --to match max number of segments you expect
+
+Author:
+	Adam Lawrence <alaw005@gmail.com>
 */
 
---DROP FUNCTION my_pgr_createSegmentedNetwork(text, text, text, double precision, integer);
-CREATE OR REPLACE FUNCTION my_pgr_createSegmentedNetwork(
+DROP FUNCTION IF EXISTS my_generate_network_with_regular_segments(text, text, text, double precision, integer);
+CREATE OR REPLACE FUNCTION my_generate_network_with_regular_segments(
     IN inputtablename text, IN outputtablename text, 
 	  IN geomfieldname text DEFAULT 'the_geom'::text, 
 	  IN spacing double precision DEFAULT 100.00, 
