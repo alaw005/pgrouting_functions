@@ -107,7 +107,7 @@ BEGIN
 
 	--Delete null sources
 	RAISE NOTICE 'Delete null source and destination records';
-	EXECUTE 'DELETE FROM ' || outputTableName || ' WHERE source is null OR destination is null';
+	EXECUTE 'DELETE FROM ' || outputTableName || ' WHERE source is null OR target is null';
 	
 	RETURN 'OK';  
 

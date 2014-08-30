@@ -17,6 +17,14 @@ Author:
 
 */
 
+/*
+-- Select addresses within buffer catchment
+SELECT  DISTINCT addresses_nz.*
+INTO hutt_pax.tmp_addresses_wellington_400m_crowflies
+FROM addresses_nz 
+	 JOIN hutt_pax.tmp_buffer ON ST_Contains(hutt_pax.tmp_buffer.the_geom, addresses_nz.geom)
+*/
+
 --DROP FUNCTION hutt_pax.my_buffer(text, float, integer);
 CREATE OR REPLACE FUNCTION hutt_pax.my_buffer(
 	source_sql text,
