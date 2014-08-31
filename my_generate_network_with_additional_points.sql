@@ -57,7 +57,7 @@ BEGIN
 			JOIN (' || networkEdgesSql || ') AS b ON ST_DWithin(ST_Transform(a.the_geom, 2193), ST_Transform(b.the_geom, 2193), 50)
 		ORDER BY  
 			a.id, 
-			ST_distance(ST_Transform(a.the_geom, 2193), ST_Transform(b.the_geom, 2193))';
+			ST_Distance(ST_Transform(a.the_geom, 2193), ST_Transform(b.the_geom, 2193))';
 		
 
 	-- Create table for the new network layer with additional nodes (note cannot use temporary table due to pgr_createTopology bug)
@@ -107,7 +107,7 @@ BEGIN
 
 	--Delete null sources
 	RAISE NOTICE 'Delete null source and destination records';
-	EXECUTE 'DELETE FROM ' || outputTableName || ' WHERE source is null OR destination is null';
+	EXECUTE 'DELETE FROM ' || outputTableName || ' WHERE source is null OR target is null';
 	
 	RETURN 'OK';  
 
